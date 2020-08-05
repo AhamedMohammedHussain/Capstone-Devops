@@ -15,7 +15,7 @@ pipeline {
 	      steps{
 		script {
 		dockerImage="ahamed1122/udacity:capstonedocker"
-		  docker.withRegistry( '', registryCredential ) {
+		  docker.withRegistry( '', "dockerhub") {
 		    dockerImage.push()
 		  }
 		}
