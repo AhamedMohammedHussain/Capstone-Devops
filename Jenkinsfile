@@ -10,11 +10,10 @@ pipeline {
 	      stage('Build image') {
             steps {
                 script {
-			sh '''
-			docker build --tag ahamed1122/udacity:capstonedocker .
-			docker login -u ahamed1122 -p 123456789udacity
-			docker push ahamed1122/udacity:capstonedocker
-			'''
+			sh '''docker build --tag ahamed1122/udacity:capstonedocker .'''
+			sh '''docker login -u ahamed1122 -p 123456789udacity'''
+			sh '''docker push ahamed1122/udacity:capstonedocker'''
+			
 			}	
 		}
 	      }
