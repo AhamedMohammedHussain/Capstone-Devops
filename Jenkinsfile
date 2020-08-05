@@ -11,7 +11,7 @@ pipeline {
       	stage('Build image') {
             steps {
                 script {
-			dockerImage = docker.build('krravindra/kubernetes-clusters-demo:lastest')
+			dockerImage = docker.build('ahamed1122/udacity:capstonedocker')
                     docker.withRegistry('', 'dockerhub') {
                         dockerImage.push()
                     }
