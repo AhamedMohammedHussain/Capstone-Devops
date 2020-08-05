@@ -20,8 +20,9 @@ pipeline {
 		    withAWS(credentials: 'aws-static', region: 'us-east-1'){
  			sh '''
 			aws eks --region us-east-1 update-kubeconfig --name KubsCluster
-			kubectl apply -f ./kubernetes-config.yml
+			kubectl apply -f ./kubeconfig.yml
             		kubectl get deployments
+			kubectl get services
 			'''
 		    }
                  }
