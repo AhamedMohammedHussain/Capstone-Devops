@@ -10,13 +10,7 @@ pipeline {
                    sh 'tidy -q -e *.html'
                }
           }
-	  stage('Building image') {
-	      steps{
-		script {
-		  docker.build registry + ":$BUILD_NUMBER"
-		}
-	      }
-	    }
+	  
          stage('Building image') {
 	      steps{
 		script {
