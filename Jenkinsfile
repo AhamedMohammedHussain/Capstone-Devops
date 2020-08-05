@@ -9,7 +9,8 @@ pipeline {
           }
 	  stage('Build Docker Image') {
               steps {
-                  sh 'docker build -t ahamed1122/udacity:capstonedocker .'
+                  sh 'docker build --tag ahamed1122/udacity:capstonedocker .'
+		      
               }
          }
          stage('Push to Dockerhub') {
