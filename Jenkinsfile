@@ -1,5 +1,8 @@
 pipeline {
-
+	environment {
+    registry = "ahamed1122/udacity:capstonedocker"
+    registryCredential = ‘dockerhub’
+  }
       agent any
       stages {
             stage('Lint HTML') {
@@ -7,20 +10,29 @@ pipeline {
                    sh 'tidy -q -e *.html'
                }
           }
-	  stage('Build Docker Image') {
-              steps {
-                  sh 'docker build --tag ahamed1122/udacity:capstonedocker .'
-		      
-              }
-         }
-         stage('Push to Dockerhub') {
-              steps {
-                  echo 'Pushing Image....'
-                  withDockerRegistry([url: "", credentialsId: "dockerhub"]) {
-                      sh 'docker push ahamed1122/udacity:capstonedocker'
-                  }
-              }
-         }
+	  stage('Building image') {
+	      steps{
+		script {
+		  docker.build registry + ":$BUILD_NUMBER"
+		}
+	      }
+	    }
+         stage('Building image') {
+	      steps{
+		script {
+		  dockerImage = docker.build registry + ":$BUILD_NUMBER"
+		}
+	      }
+	    }
+	    stage('Deploy Image') {
+	      steps{
+		script {
+		  docker.withRegistry( '', registryCredential ) {
+		    dockerImage.push()
+		  }
+		}
+	      }
+	    }
 
           stage('Deploy App') {
             steps {
