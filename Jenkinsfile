@@ -9,7 +9,7 @@ pipeline {
           }
 	   stage('Build Docker Image') {
               steps {
-                  sh 'docker build -t udacitycapstone .'
+                  docker build --tag ahamed1122/udacity:capstonedocker .
               }
          }
       }
