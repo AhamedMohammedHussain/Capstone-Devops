@@ -7,18 +7,19 @@ pipeline {
                    sh 'tidy -q -e *.html'
                }
           }
-	      
-      	stage('Build image') {
-            steps {
-                script {
-			dockerImage = docker.build('ahamed1122/udacity:capstonedocker')
-                    docker.withRegistry('', 'dockerhub') {
-                        dockerImage.push()
-                    }
-		}	
-		}
-          }
-
+	  stage('Build Docker Image') {
+              steps {
+                  sh 'docker build -t ahamed1122/udacity:capstonedocker .'
+              }
+         }
+         stage('Push to Dockerhub') {
+              steps {
+                  echo 'Pushing Image....'
+                  withDockerRegistry([url: "", credentialsId: "dockerhub"]) {
+                      sh 'docker push ahamed1122/udacity:capstonedocker'
+                  }
+              }
+         }
 
           stage('Deploy App') {
             steps {
