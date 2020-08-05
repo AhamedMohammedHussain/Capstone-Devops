@@ -9,7 +9,7 @@ pipeline {
           }
 	   stage('Build Docker Image') {
               steps {
-                  docker build --tag ahamed1122/udacity:capstonedocker .
+                  docker build --tag ahamed1122/udacity .
               }
          }
       }
